@@ -2,51 +2,94 @@
 /* eslint-disable */
 
 declare namespace API {
-  type Order = {
-    id?: number;
-    petId?: number;
-    quantity?: number;
-    shipDate?: string;
-    /** Order Status */
-    status?: 'placed' | 'approved' | 'delivered';
-    complete?: boolean;
+  type UserParam = {
+    username: string;
+    avatar: string;
   };
 
-  type Category = {
-    id?: number;
-    name?: string;
+  type ReminderParam = {
+    summary: string;
+    content?: string;
+    link?: string;
+    dueDate?: string;
+    id?: string;
   };
 
-  type User = {
-    id?: number;
-    username?: string;
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    password?: string;
-    phone?: string;
-    /** User Status */
-    userStatus?: number;
-  };
-
-  type Tag = {
-    id?: number;
-    name?: string;
-  };
-
-  type Pet = {
-    id?: number;
-    category?: Category;
+  type PasswordParam = {
     name: string;
-    photoUrls: string[];
-    tags?: Tag[];
-    /** pet status in the store */
-    status?: 'available' | 'pending' | 'sold';
+    pwd: string;
+    username?: string;
+    website?: string;
+    desc?: string;
+    id?: string;
   };
 
-  type ApiResponse = {
-    code?: number;
-    type?: string;
-    message?: string;
+  type NoteParam = {
+    title: string;
+    content: string;
+    id?: string;
+  };
+
+  type UserInfo = {
+    username: string;
+    phone: string;
+    avatar: string;
+    id: string;
+  };
+
+  type PageReminder = {
+    total: number;
+    list: Reminder[];
+  };
+
+  type Reminder = {
+    summary: string;
+    content?: string;
+    link?: string;
+    dueDate?: string;
+    userId: string;
+    id?: string;
+    ctime?: string;
+    mtime?: string;
+  };
+
+  type PagePassword = {
+    total: number;
+    list: Password[];
+  };
+
+  type Password = {
+    name: string;
+    pwd: string;
+    username?: string;
+    website?: string;
+    desc?: string;
+    userId: string;
+    id?: string;
+    ctime?: string;
+    mtime?: string;
+  };
+
+  type OssData = {
+    accessId: string;
+    host: string;
+    dir: string;
+    policy: string;
+    signature: string;
+    expire: number;
+  };
+
+  type Note = {
+    title: string;
+    content: string;
+    userId: string;
+    id?: string;
+    ctime?: string;
+    mtime?: string;
+  };
+
+  type PageNote = {
+    total: number;
+    list: Note[];
   };
 }

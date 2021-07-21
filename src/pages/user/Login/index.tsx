@@ -85,8 +85,8 @@ const Login: React.FC = () => {
         <div className={styles.top}>
           <div className={styles.header}>
             <Link to="/">
-              <img alt="logo" className={styles.logo} src="/logo.svg" />
-              <span className={styles.title}>Ant Design</span>
+              <img alt="logo" className={styles.logo} src="http://oss.sabercon.cn/base/logo.svg" />
+              <span className={styles.title}>Mogumin</span>
             </Link>
           </div>
           <div className={styles.desc}>{'Ant Design 是西湖区最具影响力的 Web 设计规范'}</div>

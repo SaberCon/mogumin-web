@@ -2,11 +2,17 @@
 /* eslint-disable */
 // API 更新时间：
 // API 唯一标识：
-import * as pet from './pet';
-import * as store from './store';
-import * as user from './user';
+import * as userService from './userService';
+import * as reminderService from './reminderService';
+import * as passwordService from './passwordService';
+import * as noteService from './noteService';
+import * as smsService from './smsService';
+import * as ossService from './ossService';
 export default {
-  pet,
-  store,
-  user,
+  userService,
+  reminderService,
+  passwordService,
+  noteService,
+  smsService,
+  ossService,
 };
