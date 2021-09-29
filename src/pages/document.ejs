@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
       name="keywords"
-      content="SaberCon, Mogumin, Kotlin, TypeScript, Antd"
+      content="SaberCon, Megumin, Kotlin, TypeScript, Antd"
     />
     <meta
       name="description"
@@ -15,11 +15,21 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
-    <title>Ant Design Pro</title>
+    <title>Megumin</title>
     <link rel="icon" href="<%= context.config.publicPath +'favicon.ico'%>" type="image/x-icon" />
   </head>
   <body>
-    <noscript>Mogumin</noscript>
+    <noscript>
+      <div class="noscript-container">
+        Hi there! Please
+        <div class="noscript-enableJS">
+          <a href="https://www.enablejavascript.io/en" target="_blank" rel="noopener noreferrer">
+            <b>enable Javascript</b>
+          </a>
+        </div>
+        in your browser to use Megumin!
+      </div>
+    </noscript>
     <div id="root">
       <style>
         html,
@@ -32,6 +42,19 @@
         #root {
           background-repeat: no-repeat;
           background-size: 100% auto;
+        }
+        .noscript-container {
+          display: flex;
+          align-content: center;
+          justify-content: center;
+          margin-top: 90px;
+          font-size: 20px;
+          font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
+            Geneva, Verdana, sans-serif;
+        }
+        .noscript-enableJS {
+          padding-right: 3px;
+          padding-left: 3px;
         }
         .page-loading-warp {
           display: flex;
@@ -198,7 +221,7 @@
             width="32"
             style="margin-right: 8px"
           />
-          Mogumin
+          Megumin
         </div>
       </div>
     </div>
