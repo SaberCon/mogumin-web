@@ -1,8 +1,8 @@
-import { Settings as LayoutSettings } from '@ant-design/pro-layout';
+import { Settings as LayoutSettings } from '@ant-design/pro-layout'
 
 const Settings: LayoutSettings & {
-  pwa?: boolean;
-  logo?: string;
+  pwa?: boolean
+  logo?: string
 } = {
   navTheme: 'light',
   primaryColor: '#1890ff',
@@ -15,6 +15,6 @@ const Settings: LayoutSettings & {
   pwa: false,
   logo: 'http://oss.sabercon.cn/base/logo.svg',
   iconfontUrl: '',
-};
+}
 
-export default Settings;
+export default Settings

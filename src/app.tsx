@@ -1,22 +1,22 @@
-import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
-import { PageLoading } from '@ant-design/pro-layout';
-import { message, notification } from 'antd';
-import type { RequestConfig, RunTimeLayoutConfig } from 'umi';
-import { history, Link } from 'umi';
-import RightContent from '@/components/RightContent';
-import Footer from '@/components/Footer';
-import { BookOutlined, LinkOutlined } from '@ant-design/icons';
-import { getCurrentUser } from '@/services/user';
-import * as storage from '@/utils/storage';
-import type { RequestInterceptor, ResponseError } from 'umi-request';
+import type { Settings as LayoutSettings } from '@ant-design/pro-layout'
+import { PageLoading } from '@ant-design/pro-layout'
+import { message, notification } from 'antd'
+import type { RequestConfig, RunTimeLayoutConfig } from 'umi'
+import { history, Link } from 'umi'
+import RightContent from '@/components/RightContent'
+import Footer from '@/components/Footer'
+import { BookOutlined, LinkOutlined } from '@ant-design/icons'
+import { getCurrentUser } from '@/services/user'
+import * as storage from '@/utils/storage'
+import type { RequestInterceptor, ResponseError } from 'umi-request'
 
-const isDev = process.env.NODE_ENV === 'development';
-const loginPath = '/user/login';
+const isDev = process.env.NODE_ENV === 'development'
+const loginPath = '/user/login'
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
-  loading: <PageLoading />,
-};
+  loading: <PageLoading/>,
+}
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
@@ -28,78 +28,78 @@ export async function getInitialState(): Promise<{
   const fetchUserInfo = async () => {
     if (storage.has(TOKEN_HEADER)) {
       try {
-        return await getCurrentUser();
+        return await getCurrentUser()
       } catch (error) {
-        storage.remove(TOKEN_HEADER);
+        storage.remove(TOKEN_HEADER)
       }
     }
-    history.push(loginPath);
-    return undefined;
-  };
+    history.push(loginPath)
+    return undefined
+  }
 
   return {
     settings: {},
     currentUser: history.location.pathname !== loginPath ? await fetchUserInfo() : undefined,
-  };
+  }
 }
 
 /** ProLayout 支持的api https://procomponents.ant.design/components/layout */
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
-    rightContentRender: () => <RightContent />,
+    rightContentRender: () => <RightContent/>,
     disableContentMargin: false,
     waterMarkProps: {
       content: initialState?.currentUser?.username,
     },
-    footerRender: () => <Footer />,
+    footerRender: () => <Footer/>,
     onPageChange: () => {
-      const { location } = history;
+      const { location } = history
       // 如果没有登录，重定向到 login
       if (!initialState?.currentUser && location.pathname !== loginPath) {
-        history.push(loginPath);
+        history.push(loginPath)
       }
     },
     links: isDev
       ? [
-          <Link to="/umi/plugin/openapi" target="_blank">
-            <LinkOutlined />
-            <span>OpenAPI 文档</span>
-          </Link>,
-          <Link to="/~docs">
-            <BookOutlined />
-            <span>业务组件文档</span>
-          </Link>,
-        ]
+        <Link to="/umi/plugin/openapi" target="_blank">
+          <LinkOutlined/>
+          <span>OpenAPI 文档</span>
+        </Link>,
+        <Link to="/~docs">
+          <BookOutlined/>
+          <span>业务组件文档</span>
+        </Link>,
+      ]
       : [],
     menuHeaderRender: undefined,
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
     ...initialState?.settings,
-  };
-};
+  }
+}
 
 const errorHandler = (error: ResponseError) => {
-  const { response } = error;
+  const { response } = error
   if (response.status === 400) {
-    message.warning(error.data.msg);
+    message.warning(error.data.msg)
   } else {
     notification.error({
       message: `请求错误 ${response.status}: ${response.url}`,
       description: response.statusText,
-    });
+    })
   }
-  throw error;
-};
+  throw error
+}
 
 const authHeaderInterceptor: RequestInterceptor = (url, options) => {
-  const token = storage.get(TOKEN_HEADER);
+  const token = storage.get(TOKEN_HEADER)
   return {
     options: { ...options, interceptors: true, headers: token ? { [TOKEN_HEADER]: token } : {} },
-  };
-};
+  }
+}
 
 export const request: RequestConfig = {
   errorHandler,
   requestInterceptors: [authHeaderInterceptor],
   errorConfig: { adaptor: (resData) => ({ success: true, data: resData }) },
-};
+}

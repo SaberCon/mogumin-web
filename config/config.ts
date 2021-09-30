@@ -1,10 +1,10 @@
 // https://umijs.org/config/
-import { defineConfig } from 'umi';
-import defaultSettings from './defaultSettings';
-import proxy from './proxy';
-import routes from './routes';
+import { defineConfig } from 'umi'
+import defaultSettings from './defaultSettings'
+import proxy from './proxy'
+import routes from './routes'
 
-const { REACT_APP_ENV } = process.env;
+const { REACT_APP_ENV } = process.env
 
 export default defineConfig({
   hash: true,
@@ -43,7 +43,7 @@ export default defineConfig({
   fastRefresh: {},
   openAPI: [
     {
-      requestLibPath: "import { request } from 'umi'",
+      requestLibPath: 'import { request } from \'umi\'',
       schemaPath: 'http://localhost:8080/v3/api-docs',
       projectName: 'swagger',
       mock: false,
@@ -58,4 +58,4 @@ export default defineConfig({
   define: {
     TOKEN_HEADER: 'token',
   },
-});
+})
