@@ -1,24 +1,37 @@
-import {history, useModel} from 'umi'
-import {getCurrentUser} from '@/services/user'
+import { history, useModel } from 'umi'
+import { getCurrentUser } from '@/services/user'
 
+const EMPTY_USER: API.CurrentUser = {
+  id: 0,
+  username: '',
+  phone: '',
+  avatar: '',
+}
 
 export const useCurrentUser = () => {
-  const {initialState, setInitialState} = useModel('@@initialState')
-
-  if (initialState!.currentUser == null) {
-    history.push({
-      pathname: '/user/login',
-      query: {redirect: history.location.pathname},
-    })
-  }
+  const { initialState = { settings: {} }, setInitialState } = useModel('@@initialState')
 
   const refreshCurrentUser = async () => {
     try {
-      setInitialState({...initialState!, currentUser: await getCurrentUser()})
+      await setInitialState({ ...initialState, currentUser: await getCurrentUser() })
     } catch (error) {
-      setInitialState({...initialState!, currentUser: undefined})
+      await setInitialState({ ...initialState, currentUser: undefined })
     }
   }
 
-  return {currentUser: initialState!.currentUser, refreshCurrentUser}
+  return { currentUser: initialState.currentUser, refreshCurrentUser }
+}
+
+export const useCurrentUserOrGoToLogin = () => {
+  const { currentUser, refreshCurrentUser } = useCurrentUser()
+
+  if (!currentUser && history.location.pathname !== '/user/login') {
+    history.push({
+      pathname: '/user/login',
+      query: { redirect: history.location.pathname },
+    })
+    return { currentUser: EMPTY_USER, refreshCurrentUser }
+  }
+
+  return { currentUser, refreshCurrentUser }
 }

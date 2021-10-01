@@ -14,7 +14,7 @@ export async function getOssData() {
     dir: string
     policy: string
     signature: string
-    expire: bigint
+    expire: number
   }>('oss')
 }
 
