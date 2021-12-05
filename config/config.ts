@@ -41,14 +41,6 @@ export default defineConfig({
   },
   // Fast Refresh
   fastRefresh: {},
-  openAPI: [
-    {
-      requestLibPath: 'import { request } from \'umi\'',
-      schemaPath: 'http://localhost:8080/v3/api-docs',
-      projectName: 'swagger',
-      mock: false,
-    },
-  ],
   nodeModulesTransform: {
     type: 'none',
   },
@@ -56,6 +48,6 @@ export default defineConfig({
   webpack5: {},
   exportStatic: {},
   define: {
-    TOKEN_HEADER: 'token',
+    TOKEN_KEY: 'token',
   },
 })

@@ -39,15 +39,13 @@ const Login: React.FC = () => {
     try {
       const token = await login(type, phone, type == 'PWD' ? password : captcha)
       if (autoLogin) {
-        setInLocal(TOKEN_HEADER, token)
+        setInLocal(TOKEN_KEY, token)
       } else {
-        setInSession(TOKEN_HEADER, token)
+        setInSession(TOKEN_KEY, token)
       }
       message.success('登录成功！')
       await refreshCurrentUser()
-      if (history) {
-        history.push(history.location.query?.redirect as string || '/')
-      }
+      history.push(history.location.query?.redirect as string || '/')
     } catch (error) {
       setLoginStatus({ ok: false, loginType: type })
     }
@@ -77,8 +75,8 @@ const Login: React.FC = () => {
             <Tabs.TabPane key="SMS" tab="验证码登录"/>
           </Tabs>
 
-          {type === 'PWD' && !ok && type == loginType && (<LoginMessage content="密码错误"/>)}
-          {type === 'SMS' && !ok && type == loginType && <LoginMessage content="验证码错误"/>}
+          {type === 'PWD' && !ok && type === loginType && <LoginMessage content="密码错误"/>}
+          {type === 'SMS' && !ok && type === loginType && <LoginMessage content="验证码错误"/>}
 
           <ProFormText
             fieldProps={{

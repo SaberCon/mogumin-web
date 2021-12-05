@@ -55,4 +55,4 @@ export default (): React.ReactNode => {
       </Card>
     </PageContainer>
   )
-};
+}

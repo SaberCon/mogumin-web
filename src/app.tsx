@@ -26,11 +26,11 @@ export async function getInitialState(): Promise<{
   currentUser?: API.CurrentUser
 }> {
   const fetchUserInfo = async () => {
-    if (storage.has(TOKEN_HEADER)) {
+    if (storage.has(TOKEN_KEY)) {
       try {
         return await getCurrentUser()
       } catch (error) {
-        storage.remove(TOKEN_HEADER)
+        storage.remove(TOKEN_KEY)
       }
     }
     history.push(loginPath)
@@ -49,7 +49,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     rightContentRender: () => <RightContent/>,
     disableContentMargin: false,
     waterMarkProps: {
-      content: initialState?.currentUser?.username,
+      // We don't apply watermark now.
+      // content: initialState?.currentUser?.username,
     },
     footerRender: () => <Footer/>,
     onPageChange: () => {
@@ -82,7 +83,7 @@ const errorHandler = (error: ResponseError) => {
   const { response } = error
   if (response.status === 400) {
     message.warning(error.data.msg)
-  } else {
+  } else if (response.status !== 401) {
     notification.error({
       message: `请求错误 ${response.status}: ${response.url}`,
       description: response.statusText,
@@ -92,9 +93,10 @@ const errorHandler = (error: ResponseError) => {
 }
 
 const authHeaderInterceptor: RequestInterceptor = (url, options) => {
-  const token = storage.get(TOKEN_HEADER)
+  const token = storage.get(TOKEN_KEY)
+  const headers: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {}
   return {
-    options: { ...options, interceptors: true, headers: token ? { [TOKEN_HEADER]: token } : {} },
+    options: { ...options, interceptors: true, headers },
   }
 }
 

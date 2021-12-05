@@ -1,30 +1,72 @@
 export default [
+  { path: '/', redirect: '/welcome' },
+  { name: 'Welcome', icon: 'smile', path: '/welcome', component: './Welcome' },
   {
     path: '/user',
     layout: false,
     routes: [
       {
-        path: '/user/login',
-        layout: false,
-        name: 'login',
-        component: './user/Login',
-      },
-      {
         path: '/user',
         redirect: '/user/login',
       },
+      {
+        name: 'login',
+        layout: false,
+        path: '/user/login',
+        component: './user/login',
+      },
     ],
   },
-  { path: '/welcome', name: '欢迎', icon: 'smile', component: './Welcome' },
-  { path: '/', redirect: '/welcome' },
   {
-    path: '/admin',
-    name: '管理页',
-    icon: 'crown',
-    access: 'canAdmin',
-    component: './Admin',
+    name: 'Account',
+    icon: 'user',
+    path: '/account',
     routes: [
-      { path: '/admin/sub-page', name: '二级管理页', icon: 'smile', component: './Welcome' },
+      {
+        path: '/account',
+        redirect: '/account/center',
+      },
+      {
+        name: 'Account Center',
+        icon: 'smile',
+        path: '/account/center',
+        component: './account/center',
+      },
+      {
+        name: 'Account Settings',
+        icon: 'smile',
+        path: '/account/settings',
+        component: './account/settings',
+      },
+    ],
+  },
+  {
+    name: 'Graphic Editor',
+    icon: 'highlight',
+    path: '/editor',
+    routes: [
+      {
+        path: '/editor',
+        redirect: '/editor/flow',
+      },
+      {
+        name: 'Flow Editor',
+        icon: 'smile',
+        path: '/editor/flow',
+        component: './editor/flow',
+      },
+      {
+        name: 'Mind Editor',
+        icon: 'smile',
+        path: '/editor/mind',
+        component: './editor/mind',
+      },
+      {
+        name: 'Koni Editor',
+        icon: 'smile',
+        path: '/editor/koni',
+        component: './editor/koni',
+      },
     ],
   },
   { component: './404' },

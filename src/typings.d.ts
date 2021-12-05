@@ -19,4 +19,4 @@ declare module 'bizcharts-plugin-slider';
 
 declare const REACT_APP_ENV: 'test' | 'dev' | 'pre' | false
 
-declare const TOKEN_HEADER: string
+declare const TOKEN_KEY: string
