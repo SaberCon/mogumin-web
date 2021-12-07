@@ -104,127 +104,229 @@ export default () => {
 | visible         | 输入框是否显示                     | `boolean`                    | -      |
 | onVisibleChange | 输入框显示隐藏的回调函数           | `(visible: boolean) => void` | -      |
 
-## NoticeIcon 通知工具
+[comment]: <> (## NoticeIcon 通知工具)
 
-通知工具提供一个展示多种通知信息的界面。
+[comment]: <> (通知工具提供一个展示多种通知信息的界面。)
 
-```tsx
-/**
- * background: '#f0f2f5'
- */
-import { message } from 'antd';
-import React from 'react';
-import NoticeIcon from '@/components/NoticeIcon/NoticeIcon';
+[comment]: <> (```tsx)
 
-export default () => {
-  const list = [
-    {
-      id: '000000001',
-      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png',
-      title: '你收到了 14 份新周报',
-      datetime: '2017-08-09',
-      type: 'notification',
-    },
-    {
-      id: '000000002',
-      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/OKJXDXrmkNshAMvwtvhu.png',
-      title: '你推荐的 曲妮妮 已通过第三轮面试',
-      datetime: '2017-08-08',
-      type: 'notification',
-    },
-  ];
-  return (
-    <NoticeIcon
-      count={10}
-      onItemClick={(item) => {
-        message.info(`${item.title} 被点击了`);
-      }}
-      onClear={(title: string, key: string) => message.info('点击了清空更多')}
-      loading={false}
-      clearText="清空"
-      viewMoreText="查看更多"
-      onViewMore={() => message.info('点击了查看更多')}
-      clearClose
-    >
-      <NoticeIcon.Tab
-        tabKey="notification"
-        count={2}
-        list={list}
-        title="通知"
-        emptyText="你已查看所有通知"
-        showViewMore
-      />
-      <NoticeIcon.Tab
-        tabKey="message"
-        count={2}
-        list={list}
-        title="消息"
-        emptyText="您已读完所有消息"
-        showViewMore
-      />
-      <NoticeIcon.Tab
-        tabKey="event"
-        title="待办"
-        emptyText="你已完成所有待办"
-        count={2}
-        list={list}
-        showViewMore
-      />
-    </NoticeIcon>
-  );
-};
-```
+[comment]: <> (/**)
 
-### NoticeIcon API
+[comment]: <> ( * background: '#f0f2f5')
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| count | 有多少未读通知 | `number` | - |
-| bell | 铃铛的图表 | `ReactNode` | - |
-| onClear | 点击清空数据按钮 | `(tabName: string, tabKey: string) => void` | - |
-| onItemClick | 未读消息列被点击 | `(item: API.NoticeIconData, tabProps: NoticeIconTabProps) => void` | - |
-| onViewMore | 查看更多的按钮点击 | `(tabProps: NoticeIconTabProps, e: MouseEvent) => void` | - |
-| onTabChange | 通知 Tab 的切换 | `(tabTile: string) => void;` | - |
-| popupVisible | 通知显示是否展示 | `boolean` | - |
-| onPopupVisibleChange | 通知信息显示隐藏的回调函数 | `(visible: boolean) => void` | - |
-| clearText | 清空按钮的文字 | `string` | - |
-| viewMoreText | 查看更多的按钮文字 | `string` | - |
-| clearClose | 展示清空按钮 | `boolean` | - |
-| emptyImage | 列表为空时的兜底展示 | `ReactNode` | - |
+[comment]: <> ( */)
 
-### NoticeIcon.Tab API
+[comment]: <> (import { message } from 'antd';)
 
-| 参数         | 说明               | 类型                                 | 默认值 |
-| ------------ | ------------------ | ------------------------------------ | ------ |
-| count        | 有多少未读通知     | `number`                             | -      |
-| title        | 通知 Tab 的标题    | `ReactNode`                          | -      |
-| showClear    | 展示清除按钮       | `boolean`                            | `true` |
-| showViewMore | 展示加载更         | `boolean`                            | `true` |
-| tabKey       | Tab 的唯一 key     | `string`                             | -      |
-| onClick      | 子项的单击事件     | `(item: API.NoticeIconData) => void` | -      |
-| onClear      | 清楚按钮的点击     | `()=>void`                           | -      |
-| emptyText    | 为空的时候测试     | `()=>void`                           | -      |
-| viewMoreText | 查看更多的按钮文字 | `string`                             | -      |
-| onViewMore   | 查看更多的按钮点击 | `( e: MouseEvent) => void`           | -      |
-| list         | 通知信息的列表     | `API.NoticeIconData`                 | -      |
+[comment]: <> (import React from 'react';)
 
-### NoticeIconData
+[comment]: <> (import NoticeIcon from '@/components/NoticeIcon/NoticeIcon';)
 
-```tsx | pure
-export interface NoticeIconData {
-  id: string;
-  key: string;
-  avatar: string;
-  title: string;
-  datetime: string;
-  type: string;
-  read?: boolean;
-  description: string;
-  clickClose?: boolean;
-  extra: any;
-  status: string;
-}
-```
+[comment]: <> (export default &#40;&#41; => {)
+
+[comment]: <> (  const list = [)
+
+[comment]: <> (    {)
+
+[comment]: <> (      id: '000000001',)
+
+[comment]: <> (      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png',)
+
+[comment]: <> (      title: '你收到了 14 份新周报',)
+
+[comment]: <> (      datetime: '2017-08-09',)
+
+[comment]: <> (      type: 'notification',)
+
+[comment]: <> (    },)
+
+[comment]: <> (    {)
+
+[comment]: <> (      id: '000000002',)
+
+[comment]: <> (      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/OKJXDXrmkNshAMvwtvhu.png',)
+
+[comment]: <> (      title: '你推荐的 曲妮妮 已通过第三轮面试',)
+
+[comment]: <> (      datetime: '2017-08-08',)
+
+[comment]: <> (      type: 'notification',)
+
+[comment]: <> (    },)
+
+[comment]: <> (  ];)
+
+[comment]: <> (  return &#40;)
+
+[comment]: <> (    <NoticeIcon)
+
+[comment]: <> (      count={10})
+
+[comment]: <> (      onItemClick={&#40;item&#41; => {)
+
+[comment]: <> (        message.info&#40;`${item.title} 被点击了`&#41;;)
+
+[comment]: <> (      }})
+
+[comment]: <> (      onClear={&#40;title: string, key: string&#41; => message.info&#40;'点击了清空更多'&#41;})
+
+[comment]: <> (      loading={false})
+
+[comment]: <> (      clearText="清空")
+
+[comment]: <> (      viewMoreText="查看更多")
+
+[comment]: <> (      onViewMore={&#40;&#41; => message.info&#40;'点击了查看更多'&#41;})
+
+[comment]: <> (      clearClose)
+
+[comment]: <> (    >)
+
+[comment]: <> (      <NoticeIcon.Tab)
+
+[comment]: <> (        tabKey="notification")
+
+[comment]: <> (        count={2})
+
+[comment]: <> (        list={list})
+
+[comment]: <> (        title="通知")
+
+[comment]: <> (        emptyText="你已查看所有通知")
+
+[comment]: <> (        showViewMore)
+
+[comment]: <> (      />)
+
+[comment]: <> (      <NoticeIcon.Tab)
+
+[comment]: <> (        tabKey="message")
+
+[comment]: <> (        count={2})
+
+[comment]: <> (        list={list})
+
+[comment]: <> (        title="消息")
+
+[comment]: <> (        emptyText="您已读完所有消息")
+
+[comment]: <> (        showViewMore)
+
+[comment]: <> (      />)
+
+[comment]: <> (      <NoticeIcon.Tab)
+
+[comment]: <> (        tabKey="event")
+
+[comment]: <> (        title="待办")
+
+[comment]: <> (        emptyText="你已完成所有待办")
+
+[comment]: <> (        count={2})
+
+[comment]: <> (        list={list})
+
+[comment]: <> (        showViewMore)
+
+[comment]: <> (      />)
+
+[comment]: <> (    </NoticeIcon>)
+
+[comment]: <> (  &#41;;)
+
+[comment]: <> (};)
+
+[comment]: <> (```)
+
+[comment]: <> (### NoticeIcon API)
+
+[comment]: <> (| 参数 | 说明 | 类型 | 默认值 |)
+
+[comment]: <> (| --- | --- | --- | --- |)
+
+[comment]: <> (| count | 有多少未读通知 | `number` | - |)
+
+[comment]: <> (| bell | 铃铛的图表 | `ReactNode` | - |)
+
+[comment]: <> (| onClear | 点击清空数据按钮 | `&#40;tabName: string, tabKey: string&#41; => void` | - |)
+
+[comment]: <> (| onItemClick | 未读消息列被点击 | `&#40;item: API.NoticeIconData, tabProps: NoticeIconTabProps&#41; => void` | - |)
+
+[comment]: <> (| onViewMore | 查看更多的按钮点击 | `&#40;tabProps: NoticeIconTabProps, e: MouseEvent&#41; => void` | - |)
+
+[comment]: <> (| onTabChange | 通知 Tab 的切换 | `&#40;tabTile: string&#41; => void;` | - |)
+
+[comment]: <> (| popupVisible | 通知显示是否展示 | `boolean` | - |)
+
+[comment]: <> (| onPopupVisibleChange | 通知信息显示隐藏的回调函数 | `&#40;visible: boolean&#41; => void` | - |)
+
+[comment]: <> (| clearText | 清空按钮的文字 | `string` | - |)
+
+[comment]: <> (| viewMoreText | 查看更多的按钮文字 | `string` | - |)
+
+[comment]: <> (| clearClose | 展示清空按钮 | `boolean` | - |)
+
+[comment]: <> (| emptyImage | 列表为空时的兜底展示 | `ReactNode` | - |)
+
+[comment]: <> (### NoticeIcon.Tab API)
+
+[comment]: <> (| 参数         | 说明               | 类型                                 | 默认值 |)
+
+[comment]: <> (| ------------ | ------------------ | ------------------------------------ | ------ |)
+
+[comment]: <> (| count        | 有多少未读通知     | `number`                             | -      |)
+
+[comment]: <> (| title        | 通知 Tab 的标题    | `ReactNode`                          | -      |)
+
+[comment]: <> (| showClear    | 展示清除按钮       | `boolean`                            | `true` |)
+
+[comment]: <> (| showViewMore | 展示加载更         | `boolean`                            | `true` |)
+
+[comment]: <> (| tabKey       | Tab 的唯一 key     | `string`                             | -      |)
+
+[comment]: <> (| onClick      | 子项的单击事件     | `&#40;item: API.NoticeIconData&#41; => void` | -      |)
+
+[comment]: <> (| onClear      | 清楚按钮的点击     | `&#40;&#41;=>void`                           | -      |)
+
+[comment]: <> (| emptyText    | 为空的时候测试     | `&#40;&#41;=>void`                           | -      |)
+
+[comment]: <> (| viewMoreText | 查看更多的按钮文字 | `string`                             | -      |)
+
+[comment]: <> (| onViewMore   | 查看更多的按钮点击 | `&#40; e: MouseEvent&#41; => void`           | -      |)
+
+[comment]: <> (| list         | 通知信息的列表     | `API.NoticeIconData`                 | -      |)
+
+[comment]: <> (### NoticeIconData)
+
+[comment]: <> (```tsx | pure)
+
+[comment]: <> (export interface NoticeIconData {)
+
+[comment]: <> (  id: string;)
+
+[comment]: <> (  key: string;)
+
+[comment]: <> (  avatar: string;)
+
+[comment]: <> (  title: string;)
+
+[comment]: <> (  datetime: string;)
+
+[comment]: <> (  type: string;)
+
+[comment]: <> (  read?: boolean;)
+
+[comment]: <> (  description: string;)
+
+[comment]: <> (  clickClose?: boolean;)
+
+[comment]: <> (  extra: any;)
+
+[comment]: <> (  status: string;)
+
+[comment]: <> (})
+
+[comment]: <> (```)
 
 ## RightContent
 

@@ -73,23 +73,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
       ]
       : [],
     menuHeaderRender: undefined,
-    // 自定义 403 页面
-    // unAccessible: <div>unAccessible</div>,
     ...initialState?.settings,
   }
-}
-
-const errorHandler = (error: ResponseError) => {
-  const { response } = error
-  if (response.status === 400) {
-    message.warning(error.data.msg)
-  } else if (response.status !== 401) {
-    notification.error({
-      message: `请求错误 ${response.status}: ${response.url}`,
-      description: response.statusText,
-    })
-  }
-  throw error
 }
 
 const authHeaderInterceptor: RequestInterceptor = (url, options) => {
@@ -100,8 +85,22 @@ const authHeaderInterceptor: RequestInterceptor = (url, options) => {
   }
 }
 
+const errorHandler = (error: ResponseError) => {
+  const { response } = error
+  if (response.status === 400) {
+    message.warning(error.data.msg)
+  }
+  if (response.status >= 500) {
+    notification.error({
+      message: `请求错误 ${response.status}: ${response.url}`,
+      description: response.statusText,
+    })
+  }
+  throw error
+}
+
 export const request: RequestConfig = {
-  errorHandler,
   requestInterceptors: [authHeaderInterceptor],
+  errorHandler,
   errorConfig: { adaptor: (resData) => ({ success: true, data: resData }) },
 }

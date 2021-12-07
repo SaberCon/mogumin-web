@@ -1,4 +1,4 @@
-import { get, postForm, putForm } from '@/utils/request'
+import { get, postForm, putForm, putJson } from '@/utils/request'
 
 export enum SmsType {
   LOGIN = 1,
@@ -43,5 +43,5 @@ export async function updatePwd(password: string, code: string) {
 }
 
 export async function updateUser(data: { username: string; avatar: string }) {
-  return putForm<void>('user/pwd', data)
+  return putJson<void>('user', data)
 }

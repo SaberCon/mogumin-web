@@ -25,11 +25,13 @@ export const useCurrentUser = () => {
 export const useCurrentUserOrGoToLogin = () => {
   const { currentUser, refreshCurrentUser } = useCurrentUser()
 
-  if (!currentUser && history.location.pathname !== '/user/login') {
-    history.push({
-      pathname: '/user/login',
-      query: { redirect: history.location.pathname },
-    })
+  if (!currentUser) {
+    if (history.location.pathname !== '/user/login') {
+      history.push({
+        pathname: '/user/login',
+        query: { redirect: history.location.pathname },
+      })
+    }
     return { currentUser: EMPTY_USER, refreshCurrentUser }
   }
 
