@@ -1,7 +1,7 @@
-import React from 'react'
-import { PageContainer } from '@ant-design/pro-layout'
-import { Alert, Card, Typography } from 'antd'
-import styles from './Welcome.less'
+import React from 'react';
+import { PageContainer } from '@ant-design/pro-layout';
+import { Alert, Card, Typography } from 'antd';
+import styles from './Welcome.less';
 
 const CodePreview: React.FC = ({ children }) => (
   <pre className={styles.pre}>
@@ -9,14 +9,14 @@ const CodePreview: React.FC = ({ children }) => (
       <Typography.Text copyable>{children}</Typography.Text>
     </code>
   </pre>
-)
+);
 
 export default (): React.ReactNode => {
   return (
     <PageContainer>
       <Card>
         <Alert
-          message={'更快更强的重型组件，已经发布。'}
+          message={'Megumin 个人网站，已经发布。'}
           type="success"
           showIcon
           banner
@@ -26,33 +26,29 @@ export default (): React.ReactNode => {
           }}
         />
         <Typography.Text strong>
-          高级表格{' '}
-          <a
-            href="https://procomponents.ant.design/components/table"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
+          后端仓库{' '}
+          <a href="https://github.com/SaberCon/megumin" rel="noopener noreferrer" target="__blank">
             欢迎使用
           </a>
         </Typography.Text>
-        <CodePreview>yarn add @ant-design/pro-table</CodePreview>
+        <CodePreview>git clone git@github.com:SaberCon/megumin.git</CodePreview>
         <Typography.Text
           strong
           style={{
             marginBottom: 12,
           }}
         >
-          高级布局{' '}
+          前端仓库{' '}
           <a
-            href="https://procomponents.ant.design/components/layout"
+            href="https://github.com/SaberCon/megumin-web"
             rel="noopener noreferrer"
             target="__blank"
           >
             欢迎使用
           </a>
         </Typography.Text>
-        <CodePreview>yarn add @ant-design/pro-layout</CodePreview>
+        <CodePreview>git clone git@github.com:SaberCon/megumin-web.git</CodePreview>
       </Card>
     </PageContainer>
-  )
-}
+  );
+};
