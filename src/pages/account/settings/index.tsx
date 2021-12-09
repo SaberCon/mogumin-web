@@ -5,43 +5,46 @@ import BaseView from './components/BaseView'
 import BindingView from './components/BindingView'
 import NotificationView from './components/NotificationView'
 import SecurityView from './components/SecurityView'
+import { history, useParams } from 'umi'
 import styles from './index.less'
 
-type SettingsStateKeys = 'base' | 'security' | 'binding' | 'notification'
+const menuMap = {
+  base: '基本设置',
+  security: '安全设置',
+  binding: '账号绑定',
+  notification: '消息通知',
+}
 
-type SettingsState = {
-  mode: 'inline' | 'horizontal';
-  selectKey: SettingsStateKeys;
+const viewMap = {
+  base: <BaseView/>,
+  security: <SecurityView/>,
+  binding: <BindingView/>,
+  notification: <NotificationView/>,
 }
 
 const Settings: React.FC = () => {
-  const menuMap = {
-    base: '基本设置',
-    security: '安全设置',
-    binding: '账号绑定',
-    notification: '新消息通知',
-  }
-
-  const [initConfig, setInitConfig] = useState<SettingsState>({
-    mode: 'inline',
-    selectKey: 'base',
-  })
+  const [mode, setMode] = useState<'inline' | 'horizontal'>('inline')
   const dom = useRef<HTMLDivElement>()
+  let { type } = useParams<{ type: string }>()
+  if (!menuMap[type]) {
+    type = 'base'
+  }
 
   const resize = () => {
     requestAnimationFrame(() => {
       if (!dom.current) {
         return
       }
-      let mode: 'inline' | 'horizontal' = 'inline'
       const { offsetWidth } = dom.current
       if (dom.current.offsetWidth < 641 && offsetWidth > 400) {
-        mode = 'horizontal'
+        setMode('horizontal')
+        return
       }
       if (window.innerWidth < 768 && offsetWidth > 400) {
-        mode = 'horizontal'
+        setMode('horizontal')
+        return
       }
-      setInitConfig({ ...initConfig, mode })
+      setMode('inline')
     })
   }
 
@@ -55,31 +58,13 @@ const Settings: React.FC = () => {
     }
   }, [dom.current])
 
-  const getMenu = () => {
-    return Object.keys(menuMap).map((item) => <Menu.Item key={item}>{menuMap[item]}</Menu.Item>)
-  }
-
-  const renderChildren = () => {
-    const { selectKey } = initConfig
-    switch (selectKey) {
-      case 'base':
-        return <BaseView/>
-      case 'security':
-        return <SecurityView/>
-      case 'binding':
-        return <BindingView/>
-      case 'notification':
-        return <NotificationView/>
-      default:
-        return null
-    }
-  }
+  const getMenu = () => Object.keys(menuMap).map((item) => <Menu.Item key={item}>{menuMap[item]}</Menu.Item>)
 
   return (
     <GridContent>
       <div
         className={styles.main}
-        ref={(ref) => {
+        ref={ref => {
           if (ref) {
             dom.current = ref
           }
@@ -87,21 +72,16 @@ const Settings: React.FC = () => {
       >
         <div className={styles.leftMenu}>
           <Menu
-            mode={initConfig.mode}
-            selectedKeys={[initConfig.selectKey]}
-            onClick={({ key }) => {
-              setInitConfig({
-                ...initConfig,
-                selectKey: key as SettingsStateKeys,
-              })
-            }}
+            mode={mode}
+            selectedKeys={[type]}
+            onClick={({ key }) => history.push(`/account/settings/${key}`)}
           >
             {getMenu()}
           </Menu>
         </div>
         <div className={styles.right}>
-          <div className={styles.title}>{menuMap[initConfig.selectKey]}</div>
-          {renderChildren()}
+          <div className={styles.title}>{menuMap[type]}</div>
+          {viewMap[type]}
         </div>
       </div>
     </GridContent>

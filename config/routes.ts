@@ -35,7 +35,7 @@ export default [
       {
         name: 'Account Settings',
         icon: 'smile',
-        path: '/account/settings',
+        path: '/account/settings/:type?/:subtype?',
         component: './account/settings',
       },
     ],
