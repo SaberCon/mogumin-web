@@ -1,36 +1,36 @@
-import React, { useState } from 'react';
-import { message, Popover, Progress } from 'antd';
-import { useCurrentUserOrGoToLogin } from '@/hooks/useCurrentUser';
-import ProForm from '@ant-design/pro-form';
-import { SmsType, updatePwd } from '@/services/user';
-import Captcha from '@/pages/user/components/Captcha';
-import PhoneInput from '@/pages/user/components/PhoneInput';
-import PasswordInput from '@/pages/user/components/PasswordInput';
+import React, { useState } from 'react'
+import { message, Popover, Progress } from 'antd'
+import { useCurrentUserOrGoToLogin } from '@/hooks/useCurrentUser'
+import ProForm from '@ant-design/pro-form'
+import { SmsType, updatePwd } from '@/services/user'
+import Captcha from '@/pages/user/components/Captcha'
+import PhoneInput from '@/pages/user/components/PhoneInput'
+import PasswordInput from '@/pages/user/components/PasswordInput'
 
 const passwordProgressMap: Record<string, 'normal' | 'exception' | 'active' | 'success'> = {
   strong: 'success',
   medium: 'normal',
   weak: 'exception',
-};
+}
 
 const PasswordUpdate: React.FC = () => {
-  const { currentUser, refreshCurrentUser } = useCurrentUserOrGoToLogin();
-  const [passwordLength, setPasswordLength] = useState(0);
-  const passwordStatus = passwordLength > 12 ? 'strong' : passwordLength > 6 ? 'medium' : 'weak';
+  const { currentUser, refreshCurrentUser } = useCurrentUserOrGoToLogin()
+  const [passwordLength, setPasswordLength] = useState(0)
+  const passwordStatus = passwordLength > 12 ? 'strong' : passwordLength > 6 ? 'medium' : 'weak'
 
   return (
     <ProForm
       submitter={{ searchConfig: { submitText: '修改密码' } }}
       onFinish={async (values) => {
-        await updatePwd(values.password, values.code);
-        message.success('修改密码成功');
-        refreshCurrentUser();
+        await updatePwd(values.password, values.code)
+        message.success('修改密码成功')
+        refreshCurrentUser()
       }}
       onReset={() => setPasswordLength(0)}
       style={{ maxWidth: '328px', paddingTop: '16px' }}
     >
-      <PhoneInput disabled initialValue={currentUser.phone} />
-      <Captcha smsType={SmsType.UPDATE_PWD} />
+      <PhoneInput disabled initialValue={currentUser.phone}/>
+      <Captcha smsType={SmsType.UPDATE_PWD}/>
       <Popover
         content={
           <>
@@ -52,7 +52,7 @@ const PasswordUpdate: React.FC = () => {
         />
       </Popover>
     </ProForm>
-  );
-};
+  )
+}
 
-export default PasswordUpdate;
+export default PasswordUpdate

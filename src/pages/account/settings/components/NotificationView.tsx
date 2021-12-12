@@ -1,11 +1,11 @@
-import { List, Switch } from 'antd';
-import React, { Fragment } from 'react';
+import { List, Switch } from 'antd'
+import React, { Fragment } from 'react'
 
 type Unpacked<T> = T extends (infer U)[] ? U : T;
 
 const NotificationView: React.FC = () => {
   const getData = () => {
-    const Action = <Switch checkedChildren="开" unCheckedChildren="关" defaultChecked />;
+    const Action = <Switch checkedChildren="开" unCheckedChildren="关" defaultChecked/>
     return [
       {
         title: '账户密码',
@@ -22,10 +22,10 @@ const NotificationView: React.FC = () => {
         description: '待办任务将以站内信的形式通知',
         actions: [Action],
       },
-    ];
-  };
+    ]
+  }
 
-  const data = getData();
+  const data = getData()
   return (
     <Fragment>
       <List<Unpacked<typeof data>>
@@ -33,12 +33,12 @@ const NotificationView: React.FC = () => {
         dataSource={data}
         renderItem={(item) => (
           <List.Item actions={item.actions}>
-            <List.Item.Meta title={item.title} description={item.description} />
+            <List.Item.Meta title={item.title} description={item.description}/>
           </List.Item>
         )}
       />
     </Fragment>
-  );
-};
+  )
+}
 
-export default NotificationView;
+export default NotificationView

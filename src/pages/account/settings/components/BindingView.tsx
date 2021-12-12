@@ -1,6 +1,6 @@
-import { AlipayOutlined, DingdingOutlined, TaobaoOutlined } from '@ant-design/icons';
-import { List } from 'antd';
-import React, { Fragment } from 'react';
+import { AlipayOutlined, DingdingOutlined, TaobaoOutlined } from '@ant-design/icons'
+import { List } from 'antd'
+import React, { Fragment } from 'react'
 
 const BindingView: React.FC = () => {
   const getData = () => [
@@ -8,21 +8,21 @@ const BindingView: React.FC = () => {
       title: '绑定淘宝',
       description: '当前未绑定淘宝账号',
       actions: [<a key="Bind">绑定</a>],
-      avatar: <TaobaoOutlined className="taobao" />,
+      avatar: <TaobaoOutlined className="taobao"/>,
     },
     {
       title: '绑定支付宝',
       description: '当前未绑定支付宝账号',
       actions: [<a key="Bind">绑定</a>],
-      avatar: <AlipayOutlined className="alipay" />,
+      avatar: <AlipayOutlined className="alipay"/>,
     },
     {
       title: '绑定钉钉',
       description: '当前未绑定钉钉账号',
       actions: [<a key="Bind">绑定</a>],
-      avatar: <DingdingOutlined className="dingding" />,
+      avatar: <DingdingOutlined className="dingding"/>,
     },
-  ];
+  ]
 
   return (
     <Fragment>
@@ -40,7 +40,7 @@ const BindingView: React.FC = () => {
         )}
       />
     </Fragment>
-  );
-};
+  )
+}
 
-export default BindingView;
+export default BindingView
