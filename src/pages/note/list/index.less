@@ -1,0 +1,28 @@
+@import '~antd/es/style/themes/default.less';
+
+.noteList {
+  .title {
+    font-size: @heading-4-size;
+    color: @text-color;
+
+    &:hover {
+      color: @link-color;
+    }
+  }
+
+  .danger {
+    color: @error-color;
+
+    &:hover {
+      color: @error-color-hover;
+    }
+  }
+
+  .listItem {
+    color: @text-color-secondary;
+    > p {
+      margin-top: 4px;
+      margin-bottom: 0;
+    }
+  }
+}

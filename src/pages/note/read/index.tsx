@@ -4,11 +4,11 @@ import { useParams } from 'umi'
 import { useRequest } from 'ahooks'
 import { getNote } from '@/pages/note/service'
 
-const Read: React.FC = () => {
+const NoteRead: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const { data } = useRequest(getNote, { defaultParams: [id] })
 
   return <PageContainer>{data ? <div>{data.content}</div> : <PageLoading/>}</PageContainer>
 }
 
-export default Read
+export default NoteRead

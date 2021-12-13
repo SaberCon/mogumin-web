@@ -5,12 +5,14 @@ export type BaseNote = {
   content: string
 }
 
+export type Note = BaseNote & API.BaseAsset
+
 export async function getNote(id: string) {
-  return get<BaseNote & API.BaseAsset>(`/note/${id}`)
+  return get<Note>(`/note/${id}`)
 }
 
 export async function listNote() {
-  return get<(Omit<BaseNote, 'content'> & API.BaseAsset)[]>('/note')
+  return get<(Omit<Note, 'content'>)[]>('/note')
 }
 
 export async function saveNote(note: BaseNote & { id?: string }) {

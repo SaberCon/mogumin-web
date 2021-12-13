@@ -6,7 +6,7 @@ import { Card, message } from 'antd'
 import type { BaseNote } from '@/pages/note/service'
 import { getNote, saveNote } from '@/pages/note/service'
 
-const Edit: React.FC = () => {
+const NoteEdit: React.FC = () => {
   const [unsaved, setUnsaved] = useState(false)
   const { id } = useParams<{ id?: string }>()
   const [form] = ProForm.useForm()
@@ -47,4 +47,4 @@ const Edit: React.FC = () => {
   )
 }
 
-export default Edit
+export default NoteEdit
