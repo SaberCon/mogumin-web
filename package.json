@@ -1,8 +1,8 @@
 {
-  "name": "ant-design-pro",
-  "version": "5.0.0",
+  "name": "megumin",
+  "version": "1.0.0",
   "private": true,
-  "description": "An out-of-box UI solution for enterprise applications",
+  "description": "An excellent website",
   "scripts": {
     "analyze": "cross-env ANALYZE=1 umi build",
     "build": "umi build",
@@ -76,7 +76,12 @@
     "react-dom": "^17.0.0",
     "react-fittext": "^1.0.0",
     "react-helmet-async": "^1.0.4",
+    "react-markdown": "^7.1.1",
     "react-router": "^4.3.1",
+    "react-syntax-highlighter": "^15.4.5",
+    "rehype-raw": "^6.1.0",
+    "remark-gfm": "^3.0.1",
+    "remark-toc": "^8.0.1",
     "umi": "^3.5.0",
     "umi-serve": "^1.9.10"
   },
@@ -89,6 +94,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-helmet": "^6.1.0",
+    "@types/react-syntax-highlighter": "^13.5.2",
     "@umijs/fabric": "^2.6.2",
     "@umijs/openapi": "^1.1.14",
     "@umijs/plugin-blocks": "^2.0.5",
