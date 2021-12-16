@@ -3,8 +3,33 @@ import { PageContainer } from '@ant-design/pro-layout'
 import { Prompt, useParams } from 'umi'
 import ProForm, { ProFormText } from '@ant-design/pro-form'
 import { Card, message } from 'antd'
+import Editor from '@monaco-editor/react'
 import type { BaseNote } from '@/pages/note/service'
 import { getNote, saveNote } from '@/pages/note/service'
+import styles from './index.less'
+
+interface MarkdownEditorFormProps {
+  value?: string;
+  onChange?: (value: string) => void;
+}
+
+const MarkdownEditor: React.FC<MarkdownEditorFormProps> = ({ value, onChange }) => {
+  return (
+    <Card className={styles.markdownEditor}>
+      <Editor
+        height="80vh"
+        defaultLanguage="markdown"
+        options={{
+          fontSize: 16,
+        }}
+        value={value}
+        onChange={v => {
+          if (v) onChange?.(v)
+        }}
+      />
+    </Card>
+  )
+}
 
 const NoteEdit: React.FC = () => {
   const [unsaved, setUnsaved] = useState(false)
@@ -35,11 +60,13 @@ const NoteEdit: React.FC = () => {
             rules={[{ required: true, message: '请输入标题' }]}
             width="xl"
           />
-          <ProFormText
+          <ProForm.Item
             name="content"
             label="内容"
             rules={[{ required: true, message: '请输入内容' }]}
-          />
+          >
+            <MarkdownEditor/>
+          </ProForm.Item>
         </ProForm>
         <Prompt when={unsaved} message="文章未保存，确定退出么？"/>
       </Card>
