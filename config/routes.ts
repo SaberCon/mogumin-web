@@ -33,7 +33,13 @@ export default [
       },
       {
         name: 'Account Settings',
+        path: '/account/settings',
+        component: './account/settings',
+      },
+      {
+        name: 'Account Settings',
         path: '/account/settings/:type?/:subtype?',
+        hideInMenu: true,
         component: './account/settings',
       },
     ],
@@ -60,7 +66,6 @@ export default [
       {
         name: 'Edit Note',
         path: '/note/edit/:id',
-        key: '/note/hhh',
         hideInMenu: true,
         component: './note/edit',
       },
