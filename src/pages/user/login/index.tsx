@@ -12,13 +12,9 @@ import Captcha from '@/pages/user/components/Captcha'
 import PhoneInput from '@/pages/user/components/PhoneInput'
 import PasswordInput from '@/pages/user/components/PasswordInput'
 
-const LoginMessage: React.FC<{
-  content: string;
-}> = ({ content }) => (
+const LoginMessage: React.FC<{ content: string }> = ({ content }) => (
   <Alert
-    style={{
-      marginBottom: 24,
-    }}
+    style={{ marginBottom: 24 }}
     message={content}
     type="error"
     showIcon
@@ -27,12 +23,17 @@ const LoginMessage: React.FC<{
 
 const Login: React.FC = () => {
   const [type, setType] = useState<'PWD' | 'SMS'>('PWD')
-  const [loginStatus, setLoginStatus] = useState<{ ok: boolean; loginType?: 'PWD' | 'SMS' }>({
-    ok: true,
-  })
+  const [loginStatus, setLoginStatus] = useState<{ ok: boolean; loginType?: 'PWD' | 'SMS' }>({ ok: true })
   const { refreshCurrentUser } = useCurrentUser()
 
-  const handleSubmit = async (values: any) => {
+  type LoginInfo = {
+    phone: string
+    password: string
+    code: string
+    autoLogin: boolean
+  }
+
+  const handleSubmit = async (values: LoginInfo) => {
     const { phone, password, code, autoLogin } = values
     try {
       const token = await login(type, phone, type == 'PWD' ? password : code)
@@ -43,7 +44,14 @@ const Login: React.FC = () => {
       }
       message.success('登录成功！')
       await refreshCurrentUser()
-      history.push((history.location.query?.redirect as string) || '/')
+
+      const first = <T, >(objOrArr: T | T[]): T => {
+        if (objOrArr instanceof Array) {
+          return objOrArr[0]
+        }
+        return objOrArr
+      }
+      history.push(first(history.location.query?.redirect ?? '/'))
     } catch (error) {
       setLoginStatus({ ok: false, loginType: type })
     }
@@ -57,9 +65,7 @@ const Login: React.FC = () => {
           logo={<img alt="logo" src="http://oss.sabercon.cn/base/logo.svg"/>}
           title="Megumin"
           subTitle="Megumin 是一个用 Ant Design 构建的个人网站"
-          initialValues={{
-            autoLogin: true,
-          }}
+          initialValues={{ autoLogin: true }}
           actions={[
             '其他登录方式 :',
             <AlipayCircleOutlined key="AlipayCircleOutlined" className={styles.icon}/>,
@@ -68,7 +74,7 @@ const Login: React.FC = () => {
           ]}
           onFinish={handleSubmit}
         >
-          <Tabs activeKey={type} onChange={setType as (s: string) => void}>
+          <Tabs activeKey={type} onChange={key => setType(key as 'PWD' | 'SMS')}>
             <Tabs.TabPane key="PWD" tab="密码登录"/>
             <Tabs.TabPane key="SMS" tab="验证码登录"/>
           </Tabs>
@@ -78,19 +84,11 @@ const Login: React.FC = () => {
           {type === 'PWD' && <PasswordInput/>}
           {type === 'SMS' && <Captcha smsType={SmsType.LOGIN}/>}
 
-          <div
-            style={{
-              marginBottom: 24,
-            }}
-          >
+          <div style={{ marginBottom: 24 }}>
             <ProFormCheckbox noStyle name="autoLogin">
               自动登录
             </ProFormCheckbox>
-            <a
-              style={{
-                float: 'right',
-              }}
-            >
+            <a style={{ float: 'right' }}>
               忘记密码
             </a>
           </div>

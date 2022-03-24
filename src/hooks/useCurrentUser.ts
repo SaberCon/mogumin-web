@@ -8,7 +8,7 @@ const EMPTY_USER: API.CurrentUser = {
   avatar: '',
 }
 
-export const useCurrentUser = () => {
+export const useCurrentUser = (): { currentUser: API.CurrentUser | undefined; refreshCurrentUser: () => Promise<void> } => {
   const { initialState = { settings: {} }, setInitialState } = useModel('@@initialState')
 
   const refreshCurrentUser = async () => {
@@ -22,7 +22,7 @@ export const useCurrentUser = () => {
   return { currentUser: initialState.currentUser, refreshCurrentUser }
 }
 
-export const useCurrentUserOrGoToLogin = () => {
+export const useCurrentUserOrGoToLogin = (): { currentUser: API.CurrentUser; refreshCurrentUser: () => Promise<void> } => {
   const { currentUser, refreshCurrentUser } = useCurrentUser()
 
   if (!currentUser) {

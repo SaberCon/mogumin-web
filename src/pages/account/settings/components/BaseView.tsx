@@ -3,13 +3,13 @@ import { UploadOutlined } from '@ant-design/icons'
 import { Button, message, Upload } from 'antd'
 import ProForm, { ProFormText } from '@ant-design/pro-form'
 import { useRequest } from 'ahooks'
+import type { UserUpdateParams } from '@/services/user'
 import { getOssData, updateUser } from '@/services/user'
 import type { RcFile, UploadChangeParam } from 'antd/lib/upload'
 import type { UploadFile } from 'antd/lib/upload/interface'
 import { useCurrentUserOrGoToLogin } from '@/hooks/useCurrentUser'
 import styles from './BaseView.less'
 
-// 头像组件 方便以后独立，增加裁剪之类的功能
 const AvatarView: React.FC<{ avatar: string, setAvatar: (avatar: string) => void }> = ({ avatar, setAvatar }) => {
   const { data, run } = useRequest(getOssData)
 
@@ -73,7 +73,7 @@ const BaseView: React.FC = () => {
     <div className={styles.baseView}>
       <>
         <div className={styles.left}>
-          <ProForm
+          <ProForm<UserUpdateParams>
             layout="vertical"
             onFinish={async (values) => {
               await updateUser({ username: values.username, avatar })

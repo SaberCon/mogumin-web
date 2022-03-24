@@ -5,12 +5,12 @@ import ProForm, { ProFormText } from '@ant-design/pro-form'
 import { Card, message } from 'antd'
 import Editor from '@monaco-editor/react'
 import type { BaseNote } from '@/pages/note/service'
-import { getNote, saveNote } from '@/pages/note/service'
+import { getNote, insertNote, updateNote } from '@/pages/note/service'
 import styles from './index.less'
 
-interface MarkdownEditorFormProps {
-  value?: string;
-  onChange?: (value: string) => void;
+type MarkdownEditorFormProps = {
+  value?: string
+  onChange?: (value: string | undefined) => void
 }
 
 const MarkdownEditor: React.FC<MarkdownEditorFormProps> = ({ value, onChange }) => {
@@ -23,9 +23,7 @@ const MarkdownEditor: React.FC<MarkdownEditorFormProps> = ({ value, onChange }) 
           fontSize: 16,
         }}
         value={value}
-        onChange={v => {
-          if (v) onChange?.(v)
-        }}
+        onChange={v => onChange?.(v)}
       />
     </Card>
   )
@@ -43,7 +41,7 @@ const NoteEdit: React.FC = () => {
           form={form}
           submitter={{ searchConfig: { submitText: id ? '修改' : '新增' } }}
           onFinish={async (values) => {
-            await saveNote({ id, ...values })
+            await (id ? updateNote(id, values) : insertNote(values))
             message.success('保存成功')
             setUnsaved(false)
             if (!id) {

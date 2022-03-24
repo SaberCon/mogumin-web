@@ -25,9 +25,7 @@ const NoteList: React.FC = () => {
           rowKey="id"
           dataSource={data}
           loading={loading}
-          pagination={{
-            pageSize: 20,
-          }}
+          pagination={{ pageSize: 20 }}
           renderItem={(item) => (
             <List.Item
               actions={[

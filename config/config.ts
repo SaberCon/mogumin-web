@@ -46,7 +46,7 @@ export default defineConfig({
   },
   mfsu: {},
   webpack5: {},
-  // There are some annoying BUGs about this settings when using path params like `:id`
+  // There are some annoying BUGs about these settings when using path params like `:id`
   // exportStatic: {},
   define: {
     TOKEN_KEY: 'token',

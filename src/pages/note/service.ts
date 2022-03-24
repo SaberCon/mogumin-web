@@ -1,4 +1,4 @@
-import { del, get, postJson } from '@/utils/request'
+import { del, get, postJson, putJson } from '@/utils/request'
 
 export type BaseNote = {
   title: string
@@ -7,18 +7,12 @@ export type BaseNote = {
 
 export type Note = BaseNote & API.BaseAsset
 
-export async function getNote(id: string) {
-  return get<Note>(`/note/${id}`)
-}
+export const getNote = async (id: string) => get<Note>(`/note/${id}`)
 
-export async function listNote() {
-  return get<(Omit<Note, 'content'>)[]>('/note')
-}
+export const listNote = async () => get<(Omit<Note, 'content'>)[]>('/note')
 
-export async function saveNote(note: BaseNote & { id?: string }) {
-  return postJson<void>('/note', note)
-}
+export const insertNote = async (note: BaseNote) => postJson<void>('/note', note)
 
-export async function deleteNote(id: string) {
-  return del<void>(`/note/${id}`)
-}
+export const updateNote = async (id: string, note: BaseNote) => putJson<void>(`/note/${id}`, note)
+
+export const deleteNote = async (id: string) => del<void>(`/note/${id}`)

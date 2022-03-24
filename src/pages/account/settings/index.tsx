@@ -58,8 +58,7 @@ const Settings: React.FC = () => {
     }
   }, [dom.current])
 
-  const getMenu = () =>
-    Object.keys(menuMap).map((item) => <Menu.Item key={item}>{menuMap[item]}</Menu.Item>)
+  const getMenu = () => Object.entries(menuMap).map(([key, value]) => <Menu.Item key={key}>{value}</Menu.Item>)
 
   return (
     <GridContent>

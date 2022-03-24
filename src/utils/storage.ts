@@ -1,12 +1,12 @@
-export const get = (key: string) => sessionStorage.getItem(key) ?? localStorage.getItem(key)
+export const get = (key: string): string | null => sessionStorage.getItem(key) ?? localStorage.getItem(key)
 
-export const has = (key: string) => get(key) != null
+export const has = (key: string): boolean => get(key) != null
 
-export const setInSession = (key: string, value: string) => sessionStorage.setItem(key, value)
+export const setInSession = (key: string, value: string): void => sessionStorage.setItem(key, value)
 
-export const setInLocal = (key: string, value: string) => localStorage.setItem(key, value)
+export const setInLocal = (key: string, value: string): void => localStorage.setItem(key, value)
 
-export const remove = (key: string) => {
+export const remove = (key: string): void => {
   sessionStorage.removeItem(key)
   localStorage.removeItem(key)
 }

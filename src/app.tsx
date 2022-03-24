@@ -48,10 +48,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
     rightContentRender: () => <RightContent/>,
     disableContentMargin: false,
-    waterMarkProps: {
-      // We don't apply watermark now.
-      // content: initialState?.currentUser?.username,
-    },
     footerRender: () => <Footer/>,
     onPageChange: () => {
       const { location } = history
@@ -85,14 +81,14 @@ const authHeaderInterceptor: RequestInterceptor = (url, options) => {
   }
 }
 
-const errorHandler = (error: ResponseError) => {
+const errorHandler = (error: ResponseError): void => {
   const { response } = error
   if (response.status === 400) {
     message.warning(error.data.msg)
   }
   if (response.status >= 500) {
     notification.error({
-      message: `请求错误 ${response.status}: ${response.url}`,
+      message: `Server Error ${response.status}: ${response.url}`,
       description: response.statusText,
     })
   }

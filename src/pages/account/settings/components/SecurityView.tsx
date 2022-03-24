@@ -19,9 +19,7 @@ const SecurityView: React.FC = () => {
     return viewMap[subtype]
   }
 
-  const getModifyAction = (type: string) => (
-    <a onClick={() => history.push(`/account/settings/security/${type}`)}>修改</a>
-  )
+  const getModifyAction = (type: string) => <a onClick={() => history.push(`/account/settings/security/${type}`)}>修改</a>
 
   const data = [
     {

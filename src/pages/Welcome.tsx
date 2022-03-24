@@ -11,44 +11,33 @@ const CodePreview: React.FC = ({ children }) => (
   </pre>
 )
 
-export default (): React.ReactNode => {
-  return (
-    <PageContainer>
-      <Card>
-        <Alert
-          message={'Megumin 个人网站，已经发布。'}
-          type="success"
-          showIcon
-          banner
-          style={{
-            margin: -12,
-            marginBottom: 24,
-          }}
-        />
-        <Typography.Text strong>
-          后端仓库{' '}
-          <a href="https://github.com/SaberCon/megumin" rel="noopener noreferrer" target="__blank">
-            欢迎使用
-          </a>
-        </Typography.Text>
-        <CodePreview>git clone git@github.com:SaberCon/megumin.git</CodePreview>
-        <Typography.Text
-          strong
-          style={{
-            marginBottom: 12,
-          }}
-        >
-          前端仓库{' '}
-          <a
-            href="https://github.com/SaberCon/megumin-web"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
-            欢迎使用
-          </a>
-        </Typography.Text>
-        <CodePreview>git clone git@github.com:SaberCon/megumin-web.git</CodePreview>
-      </Card>
-    </PageContainer>
-  )
-};
+export default (): React.ReactNode => (
+  <PageContainer>
+    <Card>
+      <Alert
+        message={'Megumin 个人网站，已经发布。'}
+        type="success"
+        showIcon
+        banner
+        style={{ margin: -12, marginBottom: 24 }}
+      />
+      <Typography.Text strong>
+        后端仓库{' '}
+        <a href="https://github.com/SaberCon/megumin" rel="noopener noreferrer" target="__blank">
+          欢迎使用
+        </a>
+      </Typography.Text>
+      <CodePreview>git clone git@github.com:SaberCon/megumin.git</CodePreview>
+      <Typography.Text
+        strong
+        style={{ marginBottom: 12 }}
+      >
+        前端仓库{' '}
+        <a href="https://github.com/SaberCon/megumin-web" rel="noopener noreferrer" target="__blank">
+          欢迎使用
+        </a>
+      </Typography.Text>
+      <CodePreview>git clone git@github.com:SaberCon/megumin-web.git</CodePreview>
+    </Card>
+  </PageContainer>
+)
